@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}list detale{% endblock %}
+
+{% block content %}
+    <ul>
+    {% for product in products %}
+    <li><a href="{{ product.get_absulote_url }}" style="color: black ; text-decoration: none">title is: {{ product.title }}/price is: {{ product.prise }}</a></li>
+    {% endfor %}
+    </ul>
+    <hr>
+    <p>number of products {{ total_number_of_producs }}</p>
+    <p>average rating of product rating{{ avg.rating__avg }}</p>
+{% endblock %}
