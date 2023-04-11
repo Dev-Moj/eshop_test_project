@@ -4,6 +4,17 @@ from django.utils.text import slugify
 from django.urls import reverse
 
 
+class producttag(models.Model):
+    tag = models.CharField(max_length=200, verbose_name='عنوان ')
+
+    class Meta:
+        verbose_name = 'تگ محصول'
+        verbose_name_plural = 'تگ های محصولات'
+
+    def __str__(self):
+        return self.tag
+
+
 class productCategory(models.Model):
     title = models.CharField(max_length=300, verbose_name='عنوان')
     url_title = models.CharField(max_length=300, verbose_name='عنوان در url')
@@ -34,6 +45,7 @@ class product(models.Model):
     product_information = models.OneToOneField('productinformation', on_delete=models.CASCADE,
                                                related_name='product_information', verbose_name='اطلاعات تکمیلی',
                                                null=True, blank=True)
+    product_tag = models.ManyToManyField(producttag, verbose_name='تگ های محصولات')
     title = models.CharField(max_length=300)
     prise = models.IntegerField()
     rating = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)], default=0)
