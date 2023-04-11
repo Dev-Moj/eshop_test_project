@@ -20,7 +20,7 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
-    title = models.CharField(max_length=300)
+    title = models.CharField(max_length=300,verbose_name='عنوان')
     category = models.ManyToManyField(
         ProductCategory,
         related_name='product_categories',
@@ -36,7 +36,7 @@ class Product(models.Model):
         return reverse('product-detail', args=[self.slug])
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        #self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     def __str__(self):

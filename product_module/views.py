@@ -1,17 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product
-from django.db.models import Avg
 
 
 def index(request):
     products = Product.objects.all()
     total_number_of_producs = products.count()
-    avg = products.aggregate(Avg('rating'))
 
     return render(request, 'product_module/index.html', {
         'products': products,
-        'total_number_of_producs': total_number_of_producs,
-        'avg': avg
+        'total_number_of_producs': total_number_of_producs
     })
 
 
