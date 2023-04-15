@@ -19,12 +19,25 @@ class ProductCategory(models.Model):
         verbose_name_plural = 'دسته بندی ها'
 
 
+class productBrand(models.Model):
+    title = models.CharField(max_length=300, verbose_name='عنوان برند')
+    is_active = models.BooleanField(verbose_name='فعال / غیرفعال')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'برند'
+        verbose_name_plural = 'برند ها'
+
+
 class Product(models.Model):
-    title = models.CharField(max_length=300,verbose_name='عنوان')
+    title = models.CharField(max_length=300, verbose_name='عنوان')
     category = models.ManyToManyField(
         ProductCategory,
         related_name='product_categories',
         verbose_name='دسته بندی ها')
+    brand = models.ForeignKey(productBrand,on_delete=models.CASCADE , verbose_name='برند',null=True , blank=True)
     price = models.IntegerField(verbose_name='قیمت')
     short_description = models.CharField(max_length=360, db_index=True, null=True, verbose_name='توضیحات کوتاه')
     description = models.TextField(verbose_name='توضیحات اصلی', db_index=True)
@@ -36,7 +49,6 @@ class Product(models.Model):
         return reverse('product-detail', args=[self.slug])
 
     def save(self, *args, **kwargs):
-        #self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     def __str__(self):

@@ -2,21 +2,20 @@ from django.shortcuts import render, get_object_or_404
 from .models import Product
 
 
-def index(request):
+def itesm(request):
     products = Product.objects.all().order_by('price')[:3]
 
-    return render(request, 'product_module/index.html', {
+    return render(request, 'product_module/list_items.html', {
         'products': products
     })
 
 
-def itesm(request, slug):
+def detile_items(request, slug):
     # product_item = product.objects.get(id=product_id)
 
-    product_item = get_object_or_404(Product, slug=slug)
+    product = get_object_or_404(Product, slug=slug)
 
-    return render(request, 'product_module/list_items.html', {'item': product_item})
+    return render(request, 'product_module/detile_item.html', {'product': product})
 
 
-def test(request):
-    return render(request, 'product_module/list_items.html')
+
