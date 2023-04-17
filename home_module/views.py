@@ -1,8 +1,19 @@
 from django.shortcuts import render
+from django.views import View
+from django.views.generic import TemplateView
 
 
-def index_page(request):
-    return render(request, 'home_module/index.html')
+# class homeView(View):
+#     def get(self, request):
+#         return render(request, 'home_module/index.html')
+
+class homeView(TemplateView):
+    template_name = 'home_module/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = 'this is date'
+        return context
 
 
 def content_page(request):
