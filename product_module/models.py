@@ -46,7 +46,7 @@ class Product(models.Model):
     is_delete = models.BooleanField(verbose_name='حذف شده / نشده')
 
     def get_absolute_url(self):
-        return reverse('product-detail', args=[self.slug])
+        return reverse('detile_items', args=[self.slug])
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

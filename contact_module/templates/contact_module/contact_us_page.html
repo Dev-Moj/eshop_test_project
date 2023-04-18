@@ -14,24 +14,24 @@
 				    	<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
 				            {% csrf_token %}
                             <div class="form-group col-md-6">
-                                {{ contact_forms.emile.label_tag }}
-                                {{ contact_forms.emile }}
-                                {{ contact_forms.emile.errors }}
+                                {{ form.emile.label_tag }}
+                                {{ form.emile }}
+                                {{ form.emile.errors }}
                             </div>
-                            <div class="form-group col-md-6{% if contact_forms.full_name.errors %} text-danger {% endif %}" >
-                                {{ contact_forms.full_name.label_tag }}
-                                {{ contact_forms.full_name }}
-                                {{ contact_forms.full_name.errors }}
-                            </div>
-                            <div class="form-group col-md-12">
-                                {{ contact_forms.title.label_tag }}
-                                {{ contact_forms.title }}
-                                {{ contact_forms.title.errors }}
+                            <div class="form-group col-md-6{% if form.full_name.errors %} text-danger {% endif %}" >
+                                {{ form.full_name.label_tag }}
+                                {{ form.full_name }}
+                                {{ form.full_name.errors }}
                             </div>
                             <div class="form-group col-md-12">
-                                {{ contact_forms.message.label_tag }}
-                                {{ contact_forms.message }}
-                                {{ contact_forms.message.errors }}
+                                {{ form.title.label_tag }}
+                                {{ form.title }}
+                                {{ form.title.errors }}
+                            </div>
+                            <div class="form-group col-md-12">
+                                {{ form.message.label_tag }}
+                                {{ form.message }}
+                                {{ form.message.errors }}
                             </div>
                                 <button type="submit" class="btn btn-primary pull-right"> ارسـال </button>
 
