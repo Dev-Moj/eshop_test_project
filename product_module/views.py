@@ -19,6 +19,8 @@ class listItemsView(ListView):
     template_name = 'product_module/list_items.html'
     model = Product
     context_object_name = 'products'
+    ordering = ['-price']
+    paginate_by = 1
 
     def get_queryset(self):
         base_query = super(listItemsView, self).get_queryset()

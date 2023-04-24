@@ -1528,9 +1528,8 @@ h2.title {
 #form {
   display: block;
   margin-bottom: 100px;
-  margin-top: 50px;
   overflow: hidden;
-  padding: 50px;
+  padding: 20px 50px 50px 50px;
   background: #fbfbfb;
   border-radius: 0.05em;
 	border-bottom: solid 3px #fd9b18;
