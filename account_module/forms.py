@@ -35,7 +35,8 @@ class loginform(forms.Form):
         widget=forms.EmailInput(),
         validators=[
             validators.MaxLengthValidator(100),
-            validators.EmailValidator
+            validators.EmailValidator,
+            validators.ValidationError
         ]
     )
     password = forms.CharField(
@@ -45,3 +46,31 @@ class loginform(forms.Form):
             validators.MaxLengthValidator(100)
         ]
     )
+
+
+class ForgotPassword_form(forms.Form):
+    email = forms.EmailField(
+        label='ایمیل',
+        widget=forms.EmailInput(),
+        validators=[
+            validators.MaxLengthValidator(100),
+            validators.EmailValidator
+        ]
+    )
+
+
+class ResetPassword_form(forms.Form):
+    password = forms.CharField(
+        label='کلمه عبور',
+        widget=forms.PasswordInput()
+    )
+    confirm_password = forms.CharField(
+        label='تکرار کلمه عبور',
+        widget=forms.PasswordInput()
+    )
+    def clean_confirm_password(self):
+        password = self.cleaned_data.get('password')
+        confirm_password = self.cleaned_data.get('confirm_password')
+        if password == confirm_password:
+            return confirm_password
+        raise ValidationError('کلمه عبور و تکرار کلمه عبور مغایرت دارد')

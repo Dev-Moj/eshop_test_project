@@ -1,5 +1,5 @@
 {% extends 'shared/_layout.html' %}
-{% block title %}ورود{% endblock %}
+{% block title %}بازیابی کلمه عبور{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -7,11 +7,10 @@
 			<div class="row">
 				<div class="col-sm-6 col-md-offset-3">
 					<div class="signup-form"><!--sign up form-->
-						<h2>ورود به حساب کاربری</h2>
-						<form action="{% url 'login_view' %}"method="post">
+						<h2>بازیابی کلمه عبور</h2>
+						<form action="{% url 'resetـpass_View' active_code=user.email_active_code %}"method="post">
                             {% csrf_token %}
-                            {{ login_form }}
-                            {{ login_form.email.error_messages }}
+                            {{ resetpassword_form }}
 {#                            {{ register_form.errors }}#}
 {#                            {{ register_form.email.label_tag }}#}
 {#                            {{ register_form.email }}#}
@@ -26,8 +25,7 @@
 {#							<input type="text" placeholder="نام کاربـری">#}
 {#							<input type="email" placeholder="آدرس ایمیـل">#}
 {#							<input type="password" placeholder="رمـز عبـور">#}
-                            <p><a href="{% url 'forgot_pass' %}">فراموشی رمز عبور</a> </p>
-							<button type="submit" class="btn btn-default">ورود</button>
+							<button type="submit" class="btn btn-default">بازیابی کلمه عبور</button>
 						</form>
 					</div><!--/sign up form-->
 				</div>
