@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'product_module',
     'home_module',
     'contact_module',
+    'site_module',
     # external_apps
     'django_render_partial'
 ]
@@ -131,11 +132,12 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = django.core.mail.backends.smtp.EmailBackend
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'mail.anyashop.ir'
+EMAIL_HOST_USER = 'admin@anyashop.ir'
+EMAIL_HOST_PASSWORD = 'Sh2580149910sh.'
 EMAIL_PORT = 587
+
 
 

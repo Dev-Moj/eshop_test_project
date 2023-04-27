@@ -7,6 +7,7 @@ from django.utils.crypto import get_random_string
 from django.contrib.auth import login, logout
 
 from account_module.forms import Registerform, loginform, ForgotPassword_form, ResetPassword_form
+from utils.email_service import send_email
 
 
 class RegisterView(View):
@@ -29,11 +30,26 @@ class RegisterView(View):
                                 username=user_email)
                 new_user.set_password(user_password)
                 new_user.save()
-
+                print('===================================================')
+                send_email('فعال سازی حساب کاربری', new_user.email, {'user': new_user}, 'active_account.html')
                 return redirect(reverse('home_page'))
 
         context = {'register_form': register_form}
         return render(request, 'account_module/register.html', context)
+
+
+class ActiveAccountView(View):
+    def get(self, request, mail_activ_code):
+        user: User = User.objects.filter(email_active_code__iexact=mail_activ_code).first()
+        if user is not None:
+            if not user.is_active:
+                user.is_active = True
+                user.email_active_code = get_random_string(72)
+                user.save()
+                return redirect(reverse('login_view'))
+            else:
+                pass
+        raise Http404
 
 
 class LoginView(View):
@@ -67,20 +83,6 @@ class LoginView(View):
         return render(request, 'account_module/login.html', context)
 
 
-class ActiveAccountView(View):
-    def get(self, request, mail_activ_code):
-        user: User = User.objects.filter(email_active_code__iexact=mail_activ_code).first()
-        if user is not None:
-            if not user.is_active:
-                user.is_active = True
-                user.email_active_code = get_random_string(72)
-                user.save()
-                return redirect(reverse('login_view'))
-            else:
-                pass
-        raise Http404
-
-
 class ForgetPasswordView(View):
     def get(self, request: HttpRequest):
         forgotpassword_form = ForgotPassword_form()
@@ -93,7 +95,11 @@ class ForgetPasswordView(View):
             user_email = forgotpassword_form.cleaned_data.get('email')
             user: User = User.objects.filter(email__iexact=user_email).first()
             if user is not None:
-                pass
+                print('--------------------------')
+                print(f'----------{user.email}----------------')
+                send_email('بازیابی کلمه عبور', user.email, {'user': user}, 'forgot_pass.html')
+                print('salam man ba adabam fosh nmidam')
+                return redirect(reverse('login_view'))
         context = {'forgotPassword_form': forgotpassword_form}
         return render(request, 'account_module/forgot_password.html', context)
 
@@ -125,3 +131,9 @@ class reset_passView(View):
         context = {'resetpassword_form': resetpassword_form
                    }
         return render(request, 'account_module/reset_pass.html', context)
+
+
+class LogoutView(View):
+    def get(self,request):
+        logout(request)
+        return redirect(reverse('login_view'))
